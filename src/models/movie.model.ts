@@ -36,6 +36,10 @@ const MovieSchema = new Schema({
     releaseDate: {
         type: Date,
         required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     }
 });
 

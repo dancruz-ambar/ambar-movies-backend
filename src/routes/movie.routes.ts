@@ -6,11 +6,12 @@ import {
   updateMovie,
   deleteMovie,
 } from "../handlers/movie.handler";
+import { paramIdSchema, paginationSchema } from "../schemas/params.schema";
 
 export const movieRoutes: ServerRoute[] = [
   {
     method: "POST",
-    path: "/api/movie",
+    path: "/api/movies",
     handler: createMovie,
     options: {
       validate: {
@@ -28,6 +29,12 @@ export const movieRoutes: ServerRoute[] = [
     method: "GET",
     path: "/api/movies",
     handler: getAllMovies,
+    options: {
+      validate: {
+        query: paginationSchema,
+      },
+      tags: ["api", "movies"],
+    },
   },
   {
     method: "PUT",
@@ -35,6 +42,7 @@ export const movieRoutes: ServerRoute[] = [
     handler: updateMovie,
     options: {
       validate: {
+        params: paramIdSchema,
         payload: createMovieSchema,
         failAction: (request, h, err: any) => {
           console.log("ERROR IN ROUTE PUT");
@@ -42,12 +50,24 @@ export const movieRoutes: ServerRoute[] = [
           return h.response({ message: err.message }).code(400);
         },
       },
+      tags: ["api", "movies"],
     },
   },
   {
     method: "DELETE",
     path: "/api/movies/{id}",
     handler: deleteMovie,
+    options: {
+      validate: {
+        params: paramIdSchema,
+        failAction: (request, h, err: any) => {
+          console.log("ERROR IN ROUTE DELETE");
+          console.log(err);
+          return h.response({ message: err.message }).code(400);
+        },
+      },
+      tags: ["api", "movies"],
+    }
   },
   {
     method: "GET",
@@ -55,5 +75,8 @@ export const movieRoutes: ServerRoute[] = [
     handler: function (request: Request, h: ResponseToolkit) {
       return h.response({ message: "Movies API is running" }).code(200);
     },
+    options: {
+      tags: ["api", "movies"],
+    }
   },
 ];

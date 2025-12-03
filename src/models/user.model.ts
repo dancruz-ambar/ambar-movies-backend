@@ -15,7 +15,7 @@ export interface IUserMethods {
 }
 
 export type UserDocument = Document & IUser & IUserMethods;
-export type UserModelType = Model<IUser, {}, IUserMethods>;
+export type UserModelType = Model<IUser, object, IUserMethods>;
 
 const UserSchema = new Schema<IUser, UserModelType, IUserMethods>({
     email: {

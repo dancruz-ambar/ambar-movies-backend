@@ -9,7 +9,7 @@ export const generateToken = async (userId: string) => {
     return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h'});
 };
 
-const validateToken = async (decoded: any, request: any) => {
+const validateToken = async (decoded: jwt.JwtPayload) => {
     console.log('=== Validate Token ===');
     console.log('Decoded:', decoded);
     try {
@@ -19,8 +19,8 @@ const validateToken = async (decoded: any, request: any) => {
             return { isValid: false };
         }
         return { isValid: true, credentials: { user } };
-    } catch (error) {
-        console.log('Error validating token');
+    } catch (error: unknown) {
+        console.log('Error validating token', error);
         return { isValid: false, error: 'Invalid token' };
     }
 };

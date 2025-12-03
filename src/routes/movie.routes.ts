@@ -17,10 +17,10 @@ export const movieRoutes: ServerRoute[] = [
       auth: 'jwt',
       validate: {
         payload: createMovieSchema,
-        failAction: (request, h, err: any) => {
+        failAction: (request, h, err: unknown) => {
           console.log("ERROR IN ROUTE POST");
           console.log(err);
-          return h.response({ message: err.message }).code(400);
+          return h.response({ message: (err as Error).message }).code(400);
         },
       },
       tags: ["api", "movies"],
@@ -47,10 +47,10 @@ export const movieRoutes: ServerRoute[] = [
       validate: {
         params: paramIdSchema,
         payload: createMovieSchema,
-        failAction: (request, h, err: any) => {
+        failAction: (request, h, err: unknown) => {
           console.log("ERROR IN ROUTE PUT");
           console.log(err);
-          return h.response({ message: err.message }).code(400);
+          return h.response({ message: (err as Error).message }).code(400);
         },
       },
       tags: ["api", "movies"],
@@ -64,10 +64,10 @@ export const movieRoutes: ServerRoute[] = [
       auth: 'jwt',
       validate: {
         params: paramIdSchema,
-        failAction: (request, h, err: any) => {
+        failAction: (request, h, err: unknown) => {
           console.log("ERROR IN ROUTE DELETE");
           console.log(err);
-          return h.response({ message: err.message }).code(400);
+          return h.response({ message: (err as Error).message }).code(400);
         },
       },
       tags: ["api", "movies"],

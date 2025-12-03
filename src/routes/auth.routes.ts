@@ -1,5 +1,4 @@
 import { ServerRoute } from '@hapi/hapi';
-import Joi from 'joi';
 import { register, login, me } from '../handlers/auth.handler';
 import { loginSchema, registerSchema } from '../schemas/auth.schema';
 

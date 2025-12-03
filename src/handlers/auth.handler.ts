@@ -28,9 +28,9 @@ export const register = async (request: Request, h: ResponseToolkit) => {
         },
       })
       .code(201);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error registering user", error);
-    return h.response({ message: error.message }).code(500);
+    return h.response({ message: (error as Error).message }).code(500);
   }
 };
 
@@ -58,9 +58,9 @@ export const login = async (request: Request, h: ResponseToolkit) => {
                 user: { id: user._id, email: user.email, name: user.name },
             }
         }).code(200);
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Error logging in', error);
-        return h.response({ message: error.message }).code(500);
+        return h.response({ message: (error as Error).message }).code(500);
     }
 }
 

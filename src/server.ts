@@ -1,12 +1,8 @@
 import Hapi from '@hapi/hapi';
 import { connectDB } from './config/database';
 import { movieRoutes } from './routes/movie.routes';
-
-// const init = async () => {
-//   console.log('Start server...');  
-//   await connectDB();  
-//   console.log('Server ready');
-// };
+import { authRoutes } from './routes/auth.routes';
+import { registerAuth } from './config/auth';
 
 const init = async () => {
   const server = Hapi.server({
@@ -20,6 +16,9 @@ const init = async () => {
   });
 
   await connectDB();
+  await registerAuth(server);
+
+  server.route(authRoutes);
   server.route(movieRoutes);
 
   await server.start();

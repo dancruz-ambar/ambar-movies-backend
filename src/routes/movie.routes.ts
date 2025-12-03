@@ -14,6 +14,7 @@ export const movieRoutes: ServerRoute[] = [
     path: "/api/movies",
     handler: createMovie,
     options: {
+      auth: 'jwt',
       validate: {
         payload: createMovieSchema,
         failAction: (request, h, err: any) => {
@@ -30,6 +31,7 @@ export const movieRoutes: ServerRoute[] = [
     path: "/api/movies",
     handler: getAllMovies,
     options: {
+      auth: 'jwt',
       validate: {
         query: paginationSchema,
       },
@@ -41,6 +43,7 @@ export const movieRoutes: ServerRoute[] = [
     path: "/api/movies/{id}",
     handler: updateMovie,
     options: {
+      auth: 'jwt',
       validate: {
         params: paramIdSchema,
         payload: createMovieSchema,
@@ -58,6 +61,7 @@ export const movieRoutes: ServerRoute[] = [
     path: "/api/movies/{id}",
     handler: deleteMovie,
     options: {
+      auth: 'jwt',
       validate: {
         params: paramIdSchema,
         failAction: (request, h, err: any) => {

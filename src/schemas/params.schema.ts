@@ -8,9 +8,9 @@ export const paramIdSchema = Joi.object({
     .messages({
         "string.pattern.base": "ID must be a valid MongoDB ObjectId",
     })
-})
+});
 
 export const paginationSchema = Joi.object({
     page: Joi.number().default(1),
     limit: Joi.number().default(10),
-})
+});

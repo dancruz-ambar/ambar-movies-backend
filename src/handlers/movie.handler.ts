@@ -14,7 +14,7 @@ export const getAllMovies = async (request: Request, h: ResponseToolkit) => {
   const skip = (page - 1) * limit;
 
   const [movies, total] = await Promise.all([
-    MovieModel.find().skip(skip).limit(limit),
+    MovieModel.find().where({ isActive: true }).skip(skip).limit(limit),
     MovieModel.countDocuments(),
   ]);
 

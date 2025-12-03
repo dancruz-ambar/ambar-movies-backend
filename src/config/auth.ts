@@ -6,12 +6,10 @@ import { UserModel } from '../models/user.model';
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 export const generateToken = async (userId: string) => {
-    return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h'});
+    return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1d'});
 };
 
 const validateToken = async (decoded: jwt.JwtPayload) => {
-    console.log('=== Validate Token ===');
-    console.log('Decoded:', decoded);
     try {
         const user = await UserModel.findById(decoded.userId);
         console.log('User:', user);
